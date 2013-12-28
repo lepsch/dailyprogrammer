@@ -1,4 +1,4 @@
-      !> This is a translation to Frotran of firework.c demo from pdcurses library version 3.4
+      !> This is a translation to Fortran of firework.c demo from pdcurses library version 3.4
       !! @ref http://pdcurses.sourceforge.net/
       
       subroutine get_color()
