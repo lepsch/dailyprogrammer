@@ -21,24 +21,24 @@
         max_int = ISHFT(max_int, -1)
       end
 
-      !> Choose a random number between lower and higher bound exclusively
-      !! @param[in] lower Exclusive lower bound
-      !! @param[in] lower Exclusive higher bound
-      !! @return Returns a random number between lower and higher exclusively
-      integer function exclusive_rand(lower,higher)
+      !> Choose a random number in the open interval ]lower,upper[
+      !! @param[in] lower Lower bound
+      !! @param[in] upper Upper bound
+      !! @return Returns a random number greater than lower bound and less than the upper bound
+      integer function open_interval_rand(lower,upper)
       implicit none
-      integer higher,lower,range,number,max_int
+      integer upper,lower,range,number,max_int
       intrinsic MOD,RAND
-        range = higher - lower - 1
+        range = upper - lower - 1
         number = RAND() * max_int()
-        exclusive_rand = MOD(number,range)+1+lower
+        open_interval_rand = MOD(number,range)+1+lower
       end
 
       !> http://www.reddit.com/r/dailyprogrammer/comments/pii6j/difficult_challenge_1/
       program difficult_challenge_1
       implicit none
       intrinsic TIME,SRAND,ICHAR
-      integer guess,higher_guess,lower_guess,count,exclusive_rand
+      integer guess,higher_guess,lower_guess,count,open_interval_rand
       character key
       integer*1 key_code
       integer*1 YES, HIGHER, LOWER
@@ -60,7 +60,7 @@
       count = 1
       lower_guess = LOWER_BOUND-1
       higher_guess = HIGHER_BOUND+1
-      guess = exclusive_rand(lower_guess,higher_guess)
+      guess = open_interval_rand(lower_guess,higher_guess)
 
       do
         print '("Is your number ",I3,"?",$)',guess
@@ -84,7 +84,7 @@
           cycle
         end select
 
-        guess = exclusive_rand(lower_guess,higher_guess)
+        guess = open_interval_rand(lower_guess,higher_guess)
         count = count + 1
       enddo
 
